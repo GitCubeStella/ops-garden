@@ -1,0 +1,18 @@
+# Terraform State
+*.tfstate
+*.tfstate.backup
+.terraform/
+terraform.tfvars
+crash.log
+*.tfplan
+
+# IDE / Editor Dateien
+.vscode/
+.idea/
+*.swp
+*.swo
+*.bak
+
+# SSH Keys (nur zur Sicherheit)
+*.pem
+*.pub
