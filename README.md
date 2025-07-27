@@ -1,74 +1,68 @@
 # 🌿 OpsGarden – A DevOps Playground on AWS
 
-**OpsGarden** is a real-world DevOps learning and demo environment, designed to provision, deploy and monitor modern applications using a full cloud-native toolchain on **AWS**.  
-It's an evolving project that integrates **Terraform**, **EKS**, **GitHub Actions**, and observability tooling – built for experimentation, automation, and showcasing best practices.
+[![CI Build](https://github.com/GitCubeStella/ops-garden/actions/workflows/docker-build.yml/badge.svg)](https://github.com/GitCubeStella/ops-garden/actions)
+
+**OpsGarden** is a real-world DevOps demo environment designed to build, deploy, and monitor microservices in a scalable AWS setup – starting locally with Docker Compose and growing toward EKS.
 
 ---
 
-## 🌱 Tech Stack
+## 🧰 Tech Stack
 
-- **AWS Services**: EKS, IAM, EC2, VPC, S3
-- **Infrastructure as Code**: Terraform (modular)
-- **CI/CD**: GitHub Actions
-- **Containers & Orchestration**: Docker + Kubernetes
-- **Monitoring & Logging** *(coming soon)*: Prometheus, Grafana, Loki
-- **Security & Secrets** *(planned)*: Trivy, Sealed Secrets
-
----
-
-## 🚀 Project Milestones
-
-| Status | Goal |
-|--------|------|
-| ✅     | Build and provision an EKS cluster via Terraform |
-| 🛠️     | Add Bastion host for private API access |
-| 🔜     | Deploy containerized app via GitHub Actions |
-| 🔜     | Integrate Prometheus/Grafana monitoring stack |
-| 🔜     | Add DevSecOps tooling (Trivy, Sealed Secrets) |
+- **FastAPI** – Python-based microservice (Notes)
+- **PostgreSQL** – persistent backend database
+- **Docker** & **Docker Compose** – local container orchestration
+- **Terraform** – AWS infrastructure: VPC, EKS, Bastion
+- **GitHub Actions** – CI/CD for container build and deployment
+- *(Planned)* Prometheus, Grafana, Sealed Secrets, Helm
 
 ---
 
-## 📁 Project Structure
+## 📦 Microservices (Phase 1: in progress)
 
-ops-garden/
-├── terraform/ # IaC for VPC, IAM, EKS, Bastion
-│ ├── main.tf
-│ ├── vpc.tf
-│ ├── eks.tf
-│ ├── bastion.tf
-│ └── variables.tf
-├── .gitignore
-└── README.md
-
-yaml
-Kopieren
-Bearbeiten
+| Service         | Status     | Beschreibung                   |
+|-----------------|------------|--------------------------------|
+| 📝 `notes-service` | ✅ live (locally) | REST-API für Notizen (FastAPI + Postgres) |
+| 🔐 `auth-service`  | 🔜 geplant     | Benutzer-Auth mit JWT (Node.js) |
+| 📊 `metrics-exporter` | 🔜 geplant | App-Metriken für Prometheus     |
+| 🎨 `frontend`      | 🔜 optional   | Web-UI für CloudNotes           |
 
 ---
 
-## 🧪 Currently Working On
+## 🧪 Local Setup
 
-> Infrastructure phase:
-> - [x] VPC with public/private subnets
-> - [x] EKS cluster setup
-> - [x] Bastion host deployment
-> - [ ] kubectl access from bastion  
-> - [ ] Define secure CI/CD pipeline
+```bash
+    docker compose up --build
+```
 
----
-
-## 📌 How to Contribute
-
-This is a solo learning repo, but feel free to fork, star, or suggest improvements via Issues or Pull Requests.
+Dann erreichbar unter: http://localhost:8000/docs
 
 ---
 
-## ✨ Inspiration
+## 🧠 Next Steps
+ Push Image to Amazon ECR
 
-Building a DevOps lab environment as part of my journey toward mastering real-world infrastructure automation and GitOps workflows.  
-*Currently deployed → Terraform Destroyed → CI/CD Pipeline Coming Next!*
+ Deploy to EKS via Helm or Kustomize
+
+ Add CI/CD secrets & GitHub workflows
+
+ Add monitoring & custom metrics
+ 
+---
+
+## 👩‍💻 About
+
+Built by Stella Joubert as a public DevOps learning & reference project.
+
 
 ---
 
-🟢 _Repo last updated: `$(date)`_  
-🔗 [LinkedIn][(https://www.linkedin.com/in/stella-joubert-58713a242/)] • [GitHub Profile](https://github.com/GitCubeStella)
+## ✨ Was du jetzt tun kannst:
+
+1. Kopiere den Inhalt in dein `README.md`
+2. Commit + push:
+
+```bash
+git add README.md
+git commit -m "📝 Update README with badges and project overview"
+git push
+```
