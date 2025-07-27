@@ -16,3 +16,28 @@ crash.log
 # SSH Keys (nur zur Sicherheit)
 *.pem
 *.pub
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+env/
+venv/
+ENV/
+*.egg-info/
+
+# Docker volumes
+db_data/
+*.log
+
+# dotenv / Secrets
+.env
+.env.*
+
+# VS Code Settings (optional)
+.settings/
+
+# macOS / Windows Trash
+.DS_Store
+Thumbs.db

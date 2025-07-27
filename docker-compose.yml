@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  notes-service:
+    build: ./app/notes-service
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    environment:
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_NAME=notes
+      - DB_USER=notes_user
+      - DB_PASSWORD=secret
+
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: notes
+      POSTGRES_USER: notes_user
+      POSTGRES_PASSWORD: secret
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+volumes:
+  db_data:
