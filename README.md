@@ -1,6 +1,7 @@
 # 🌿 OpsGarden   – A DevOps Playground on AWS
 
 [![CI Build](https://github.com/GitCubeStella/ops-garden/actions/workflows/docker-build.yml/badge.svg)](https://github.com/GitCubeStella/ops-garden/actions)
+![CI](https://github.com/gitcubestella/ops-garden/actions/workflows/docker-test.yml/badge.svg)
 
 **OpsGarden** is a real-world DevOps demo environment designed to build, deploy, and monitor microservices in a scalable AWS setup – starting locally with Docker Compose and growing toward EKS.
 
