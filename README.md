@@ -1,69 +1,79 @@
-# 🌿 OpsGarden   – A DevOps Playground on AWS
+# 🌿 OpsGarden – A DevOps Playground on AWS
 
 [![CI Build](https://github.com/GitCubeStella/ops-garden/actions/workflows/docker-build.yml/badge.svg)](https://github.com/GitCubeStella/ops-garden/actions)
-![CI](https://github.com/gitcubestella/ops-garden/actions/workflows/docker-test.yml/badge.svg)
+[![CI Tests](https://github.com/GitCubeStella/ops-garden/actions/workflows/docker-test.yml/badge.svg)](https://github.com/GitCubeStella/ops-garden/actions/workflows/docker-test.yml)
 
-**OpsGarden** is a real-world DevOps demo environment designed to build, deploy, and monitor microservices in a scalable AWS setup – starting locally with Docker Compose and growing toward EKS.
+**OpsGarden** ist ein hands-on DevOps-Demoprojekt, das zeigt, wie man Microservices lokal entwickelt und später in eine skalierbare AWS-Umgebung (EKS) deployt – mit Fokus auf CI/CD, Infrastructure as Code und Observability.
 
 ---
 
 ## 🧰 Tech Stack
 
-- **FastAPI** – Python-based microservice (Notes)
-- **PostgreSQL** – persistent backend database
-- **Docker** & **Docker Compose** – local container orchestration
-- **Terraform** – AWS infrastructure: VPC, EKS, Bastion
-- **GitHub Actions** – CI/CD for container build and deployment
-- *(Planned)* Prometheus, Grafana, Sealed Secrets, Helm
+- **FastAPI** – Python-basierter Notes-Microservice
+- **SQLModel** + **PostgreSQL** – relationale Datenbank
+- **Docker** & **Docker Compose** – lokale Container-Orchestrierung
+- **Terraform** – Infrastruktur-Code für VPC, EKS & Bastion Host
+- **GitHub Actions** – automatisierte Tests und Builds
+- *(Geplant)*: Helm, Kustomize, Prometheus, Grafana, Sealed Secrets
 
 ---
 
-## 📦 Microservices (Phase 1: in progress)
+## 🧪 CI/CD Pipelines
 
-| Service         | Status     | Beschreibung                   |
-|-----------------|------------|--------------------------------|
-| 📝 `notes-service` | ✅ live (locally) | REST-API für Notizen (FastAPI + Postgres) |
-| 🔐 `auth-service`  | 🔜 geplant     | Benutzer-Auth mit JWT (Node.js) |
-| 📊 `metrics-exporter` | 🔜 geplant | App-Metriken für Prometheus     |
-| 🎨 `frontend`      | 🔜 optional   | Web-UI für CloudNotes           |
+✔️ GitHub Actions führt automatisiert Tests bei jedem Push & PR gegen `main` aus:
 
----
+```yaml
+# .github/workflows/docker-test.yml
+env:
+  DATABASE_URL: "sqlite:///:memory:"
 
-## 🧪 Local Setup
+steps:
+  - Checkout
+  - Python + pip setup
+  - Dependencies installieren
+  - Pytest in notes-service ausführen
+Die SQLite-In-Memory-Datenbank wird genutzt, um schnelle isolierte Tests durchzuführen.
 
-```bash
-    docker compose up --build
-```
+📦 Microservices (Phase 1)
+Service	Status	Beschreibung
+📝 notes-service	✅ lokal aktiv	REST-API (FastAPI + PostgreSQL)
+🔐 auth-service	🔜 geplant	JWT-basierte Authentifizierung (Node.js)
+📊 metrics-exporter	🔜 geplant	Prometheus-kompatible Exporter
+🎨 frontend	🔜 optional	UI für Notizen-App (React oder Svelte)
 
-Dann erreichbar unter: http://localhost:8000/docs
+🚀 Lokales Setup
+bash
+Kopieren
+Bearbeiten
+docker compose up --build
+📍 API erreichbar unter: http://localhost:8000/docs
 
----
+🧠 Aktueller Stand & Nächste Schritte
+✅ FastAPI mit Lifespan Events (statt deprecated on_event)
 
-## 🧠 Next Steps
- Push Image to Amazon ECR
+✅ SQLModel & SQLite-basierte Tests via GitHub Actions
 
- Deploy to EKS via Helm or Kustomize
+⏳ Auth-Service & Frontend in Vorbereitung
 
- Add CI/CD secrets & GitHub workflows
+🔜 ECR Push & Helm/Kustomize für EKS-Deployments
 
- Add monitoring & custom metrics
- 
----
+🔐 Secrets Management (z. B. via GitHub OIDC & Sealed Secrets)
 
-## 👩‍💻 About
+📊 Monitoring (Prometheus + Grafana Dashboards)
 
-Built by Stella Joubert as a public DevOps learning & reference project.
+🧬 Beispiel für Lifespan (FastAPI)
+python
+Kopieren
+Bearbeiten
+from fastapi import FastAPI
+from contextlib import asynccontextmanager
+from database import create_db_and_tables
 
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    create_db_and_tables()
+    yield
 
----
-
-## ✨ Was du jetzt tun kannst:
-
-1. Kopiere den Inhalt in dein `README.md`
-2. Commit + push:
-
-```bash
-git add README.md
-git commit -m "📝 Update README with badges and project overview"
-git push
-```
+app = FastAPI(lifespan=lifespan)
+👩‍💻 About
+Erstellt von Stella Joubert als öffentliches Lern- & Portfolio-Projekt für moderne DevOps-Workflows und Microservice-Architekturen.

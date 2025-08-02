@@ -1,7 +1,5 @@
-# app/notes-service/database.py
+from sqlmodel import SQLModel, Session, create_engine
 import os
-from contextlib import contextmanager
-from sqlmodel import SQLModel, create_engine, Session
 
 engine = None
 
@@ -12,7 +10,6 @@ def get_engine():
         engine = create_engine(DATABASE_URL, echo=True)
     return engine
 
-@contextmanager
 def get_session():
     session = Session(get_engine())
     try:
