@@ -23,9 +23,9 @@
 ✔️ GitHub Actions führt automatisiert Tests bei jedem Push & PR gegen `main` aus:
 
 ```yaml
-# .github/workflows/docker-test.yml
-env:
-  DATABASE_URL: "sqlite:///:memory:"
+  # .github/workflows/docker-test.yml
+  env:
+    DATABASE_URL: "sqlite:///:memory:"
 
 steps:
   - Checkout
