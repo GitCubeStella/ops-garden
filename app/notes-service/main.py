@@ -2,15 +2,17 @@
 from fastapi import FastAPI, HTTPException, Depends
 from sqlmodel import select, Session
 from typing import List
+from contextlib import asynccontextmanager
 
 from models import Note
 from database import create_db_and_tables, get_session
 
-app = FastAPI()
-
-@app.on_event("startup")
-def on_startup():
+@asynccontextmanager
+async def lifespan(app: FastAPI):
     create_db_and_tables()
+    yield  # ⬅️ gibt die Kontrolle an FastAPI zurück
+
+app = FastAPI(lifespan=lifespan)
 
 @app.get("/notes", response_model=List[Note])
 def get_notes(session: Session = Depends(get_session)):

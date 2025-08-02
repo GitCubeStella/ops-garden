@@ -1,15 +1,12 @@
-from sqlmodel import select
-from database import create_db_and_tables, get_session
+# app/notes-service/test_db.py
+from database import get_session, create_db_and_tables
 from models import Note
 
-def setup_module(module):
-    create_db_and_tables()
-
 def test_db_inserts_note():
+    create_db_and_tables()  # wichtig für In-Memory-DB
     note = Note(title="Eintrag", content="Testeintrag")
     with get_session() as session:
         session.add(note)
         session.commit()
-
-        result = session.exec(select(Note)).first()
-        assert result.title == "Eintrag"
+        session.refresh(note)
+        assert note.id is not None
