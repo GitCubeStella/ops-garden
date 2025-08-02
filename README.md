@@ -1,4 +1,4 @@
-# 🌿 OpsGarden – A DevOps Playground on AWS
+# 🌿 OpsGarden   – A DevOps Playground on AWS
 
 [![CI Build](https://github.com/GitCubeStella/ops-garden/actions/workflows/docker-build.yml/badge.svg)](https://github.com/GitCubeStella/ops-garden/actions)
 
