@@ -1,7 +1,7 @@
 # 🌿 OpsGarden – A DevOps Playground on AWS
 
 [![CI Build](https://github.com/GitCubeStella/ops-garden/actions/workflows/docker-build.yml/badge.svg)](https://github.com/GitCubeStella/ops-garden/actions)
-[![CI Tests](https://github.com/GitCubeStella/ops-garden/actions/workflows/docker-test.yml/badge.svg)](https://github.com/GitCubeStella/ops-garden/actions/workflows/docker-test.yml)
+[![Run Tests](https://github.com/GitCubeStella/ops-garden/actions/workflows/docker-test.yml/badge.svg)](https://github.com/GitCubeStella/ops-garden/actions)
 
 **OpsGarden** ist ein hands-on DevOps-Demoprojekt, das zeigt, wie man Microservices lokal entwickelt und später in eine skalierbare AWS-Umgebung (EKS) deployt – mit Fokus auf CI/CD, Infrastructure as Code und Observability.
 
@@ -14,66 +14,72 @@
 - **Docker** & **Docker Compose** – lokale Container-Orchestrierung
 - **Terraform** – Infrastruktur-Code für VPC, EKS & Bastion Host
 - **GitHub Actions** – automatisierte Tests und Builds
-- *(Geplant)*: Helm, Kustomize, Prometheus, Grafana, Sealed Secrets
+- *(Geplant: Helm, Kustomize, Prometheus, Grafana, Sealed Secrets)*
 
 ---
 
-## 🧪 CI/CD Pipelines
+## ⚙️ CI/CD Pipelines
 
-✔️ GitHub Actions führt automatisiert Tests bei jedem Push & PR gegen `main` aus:
+> GitHub Actions führt automatisiert Tests bei jedem Push & PR gegen `main` aus.
 
 ```yaml
-  # .github/workflows/docker-test.yml
-  env:
-    DATABASE_URL: "sqlite:///:memory:"
+# .github/workflows/docker-test.yml
+env:
+  DATABASE_URL: "sqlite:///:memory:"
 
 steps:
-  - Checkout
-  - Python + pip setup
-  - Dependencies installieren
-  - Pytest in notes-service ausführen
-Die SQLite-In-Memory-Datenbank wird genutzt, um schnelle isolierte Tests durchzuführen.
+  - uses: actions/checkout@v3
+  - uses: actions/setup-python@v4
+    with:
+      python-version: '3.11'
 
-📦 Microservices (Phase 1)
-Service	Status	Beschreibung
-📝 notes-service	✅ lokal aktiv	REST-API (FastAPI + PostgreSQL)
-🔐 auth-service	🔜 geplant	JWT-basierte Authentifizierung (Node.js)
-📊 metrics-exporter	🔜 geplant	Prometheus-kompatible Exporter
-🎨 frontend	🔜 optional	UI für Notizen-App (React oder Svelte)
+  - name: Install dependencies
+    run: |
+      python -m pip install --upgrade pip
+      pip install -r app/notes-service/requirements.txt
 
-🚀 Lokales Setup
-bash
-Kopieren
-Bearbeiten
+  - name: Run tests
+    run: |
+      cd app/notes-service
+      pytest
+```
+
+💡 Es wird eine **SQLite In-Memory-Datenbank** verwendet, um schnelle isolierte Tests durchzuführen.
+
+---
+
+## 📦 Microservices (Phase 1)
+
+| Service               | Status        | Beschreibung                        |
+|------------------------|---------------|-------------------------------------|
+| 📝 `notes-service`     | ✅ lokal aktiv | REST-API (FastAPI + PostgreSQL)     |
+| 🔐 `auth-service`      | 🔜 geplant     | JWT-basierte Auth (Node.js)         |
+| 📊 `metrics-exporter`  | 🔜 geplant     | Prometheus Exporter                 |
+| 🖼️ `frontend`          | 🔜 geplant     | Web-UI (z. B. Svelte)               |
+
+---
+
+## 🧪 Local Setup
+
+```bash
 docker compose up --build
-📍 API erreichbar unter: http://localhost:8000/docs
+```
 
-🧠 Aktueller Stand & Nächste Schritte
-✅ FastAPI mit Lifespan Events (statt deprecated on_event)
+Dann erreichbar unter: [http://localhost:8000/docs](http://localhost:8000/docs)
 
-✅ SQLModel & SQLite-basierte Tests via GitHub Actions
+---
 
-⏳ Auth-Service & Frontend in Vorbereitung
+## 🚧 Next Steps
 
-🔜 ECR Push & Helm/Kustomize für EKS-Deployments
+- Push Images nach Amazon ECR  
+- Deployment auf EKS via Helm oder Kustomize  
+- Secrets via Sealed Secrets  
+- Prometheus / Grafana Monitoring  
+- Auth-Service mit JWT  
+- Frontend integrieren  
 
-🔐 Secrets Management (z. B. via GitHub OIDC & Sealed Secrets)
+---
 
-📊 Monitoring (Prometheus + Grafana Dashboards)
+## 👩‍💻 Über das Projekt
 
-🧬 Beispiel für Lifespan (FastAPI)
-python
-Kopieren
-Bearbeiten
-from fastapi import FastAPI
-from contextlib import asynccontextmanager
-from database import create_db_and_tables
-
-@asynccontextmanager
-async def lifespan(app: FastAPI):
-    create_db_and_tables()
-    yield
-
-app = FastAPI(lifespan=lifespan)
-👩‍💻 About
-Erstellt von Stella Joubert als öffentliches Lern- & Portfolio-Projekt für moderne DevOps-Workflows und Microservice-Architekturen.
+> Erstellt von **Stella Joubert** als öffentliches DevOps-Lern- & Referenzprojekt.
