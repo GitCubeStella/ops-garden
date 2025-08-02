@@ -63,34 +63,23 @@ steps:
 
 ```bash
 docker compose up --build
-📍 API erreichbar unter: http://localhost:8000/docs
+```
 
-🧠 Aktueller Stand & Nächste Schritte
-✅ FastAPI mit Lifespan Events (statt deprecated on_event)
+Dann erreichbar unter: [http://localhost:8000/docs](http://localhost:8000/docs)
 
-✅ SQLModel & SQLite-basierte Tests via GitHub Actions
+---
 
-⏳ Auth-Service & Frontend in Vorbereitung
+## 🚧 Next Steps
 
-🔜 ECR Push & Helm/Kustomize für EKS-Deployments
+- Push Images nach Amazon ECR  
+- Deployment auf EKS via Helm oder Kustomize  
+- Secrets via Sealed Secrets  
+- Prometheus / Grafana Monitoring  
+- Auth-Service mit JWT  
+- Frontend integrieren  
 
-🔐 Secrets Management (z. B. via GitHub OIDC & Sealed Secrets)
+---
 
-📊 Monitoring (Prometheus + Grafana Dashboards)
+## 👩‍💻 Über das Projekt
 
-🧬 Beispiel für Lifespan (FastAPI)
-python
-Kopieren
-Bearbeiten
-from fastapi import FastAPI
-from contextlib import asynccontextmanager
-from database import create_db_and_tables
-
-@asynccontextmanager
-async def lifespan(app: FastAPI):
-    create_db_and_tables()
-    yield
-
-app = FastAPI(lifespan=lifespan)
-👩‍💻 About
-Erstellt von Stella Joubert als öffentliches Lern- & Portfolio-Projekt für moderne DevOps-Workflows und Microservice-Architekturen.
+> Erstellt von **Stella Joubert** als öffentliches DevOps-Lern- & Referenzprojekt.
