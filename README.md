@@ -43,7 +43,7 @@ steps:
       pytest
 ```
 
-💡 Es wird eine **SQLite In-Memory-Datenbank** verwendet, um schnelle isolierte Tests durchzuführen.
+💡 Es wird eine **file-basierte SQLite-Datenbank** (`sqlite:///./test.db`) verwendet, um schnelle isolierte Tests durchzuführen.
 
 ---
 
