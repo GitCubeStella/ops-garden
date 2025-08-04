@@ -3,11 +3,22 @@ import os
 
 engine = None
 
+
 def get_engine():
     global engine
     if engine is None:
-        DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./test.db")
-        engine = create_engine(DATABASE_URL, echo=True)
+        database_url = os.getenv("DATABASE_URL")
+        if not database_url:
+            host = os.getenv("DB_HOST")
+            port = os.getenv("DB_PORT")
+            name = os.getenv("DB_NAME")
+            user = os.getenv("DB_USER")
+            password = os.getenv("DB_PASSWORD")
+            if all([host, port, name, user, password]):
+                database_url = f"postgresql://{user}:{password}@{host}:{port}/{name}"
+            else:
+                database_url = "sqlite:///./test.db"
+        engine = create_engine(database_url, echo=True)
     return engine
 
 def get_session():
