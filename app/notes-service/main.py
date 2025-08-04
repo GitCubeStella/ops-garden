@@ -1,6 +1,6 @@
 from fastapi import FastAPI, Depends
 from fastapi.responses import RedirectResponse
-from sqlmodel import SQLModel, Session
+from sqlmodel import SQLModel, Session, select
 from contextlib import asynccontextmanager
 
 from database import get_session, create_db_and_tables
@@ -25,7 +25,7 @@ def root_redirect():
 
 @app.get("/notes", response_model=List[Note])
 def get_notes(session: Session = Depends(get_session)):
-    return session.query(Note).all()
+    return session.exec(select(Note)).all()
 
 
 @app.post("/notes", response_model=Note)
