@@ -28,5 +28,5 @@ jobs:
 
       - name: Run pytest
         run: |
-          cd app/notes_service_service
+          cd app/notes_service
           pytest
