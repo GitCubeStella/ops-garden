@@ -1,4 +1,5 @@
 from sqlmodel import SQLModel, Session, create_engine
+from sqlalchemy.pool import StaticPool
 import os
 
 engine = None
@@ -18,7 +19,13 @@ def get_engine():
                 database_url = f"postgresql://{user}:{password}@{host}:{port}/{name}"
             else:
                 database_url = "sqlite:///./test.db"
-        engine = create_engine(database_url, echo=True)
+        if database_url.startswith("sqlite"):
+            kwargs = {"echo": True, "connect_args": {"check_same_thread": False}}
+            if database_url.endswith(":memory:"):
+                kwargs["poolclass"] = StaticPool
+            engine = create_engine(database_url, **kwargs)
+        else:
+            engine = create_engine(database_url, echo=True)
     return engine
 
 def get_session():
