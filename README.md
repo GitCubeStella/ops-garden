@@ -8,7 +8,7 @@
 
 ## 🧰 Tech Stack
 
-- **FastAPI** – Python-basierter Notes-Microservice
+- **FastAPI** – Python-basierter notes_service-Microservice
 - **SQLModel** + **PostgreSQL** – relationale Datenbank
 - **Docker** & **Docker Compose** – lokale Container-Orchestrierung
 - **Terraform** – Infrastruktur-Code für VPC, EKS & Bastion Host
@@ -35,11 +35,11 @@ steps:
   - name: Install dependencies
     run: |
       python -m pip install --upgrade pip
-      pip install -r app/notes-service/requirements.txt
+      pip install -r app/notes_service-service/requirements.txt
 
   - name: Run tests
     run: |
-      cd app/notes-service
+      cd app/notes_service-service
       pytest
 ```
 
@@ -51,7 +51,7 @@ steps:
 
 | Service               | Status        | Beschreibung                        |
 |------------------------|---------------|-------------------------------------|
-| 📝 `notes-service`     | ✅ lokal aktiv | REST-API (FastAPI + PostgreSQL)     |
+| 📝 `notes_service-service`     | ✅ lokal aktiv | REST-API (FastAPI + PostgreSQL)     |
 | 🔐 `auth-service`      | 🔜 geplant     | JWT-basierte Auth (Node.js)         |
 | 📊 `metrics-exporter`  | 🔜 geplant     | Prometheus Exporter                 |
 | 🖼️ `frontend`          | 🔜 geplant     | Web-UI (z. B. Svelte)               |

@@ -37,7 +37,7 @@ Activates the Python virtual environment that contains the Activate.ps1 script,
 and prefixes the current prompt with the specified string (surrounded in
 parentheses) while the virtual environment is active.
 
-.Notes
+.notes_service
 On Windows, it may be required to enable this Activate.ps1 script by setting the
 execution policy for the user. You can do this by issuing the following PowerShell
 command:

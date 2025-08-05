@@ -23,12 +23,12 @@ def root_redirect():
     return RedirectResponse(url="/docs")
 
 
-@app.get("/notes", response_model=List[Note])
-def get_notes(session: Session = Depends(get_session)):
+@app.get("/notes_service", response_model=List[Note])
+def get_notes_service(session: Session = Depends(get_session)):
     return session.exec(select(Note)).all()
 
 
-@app.post("/notes", response_model=Note)
+@app.post("/notes_service", response_model=Note)
 def create_note(note: Note, session: Session = Depends(get_session)):
     session.add(note)
     session.commit()

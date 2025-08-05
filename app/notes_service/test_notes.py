@@ -21,11 +21,11 @@ client = TestClient(app)
 
 def test_create_and_get_note():
     note = {"title": "Testnote", "content": "Das ist nur ein Test"}
-    response = client.post("/notes", json=note)
+    response = client.post("/notes_service", json=note)
     assert response.status_code == 200
     assert response.json()["title"] == "Testnote"
 
     # Check ob Note über GET auch abrufbar ist
-    get_response = client.get("/notes")
+    get_response = client.get("/notes_service")
     assert get_response.status_code == 200
     assert len(get_response.json()) > 0

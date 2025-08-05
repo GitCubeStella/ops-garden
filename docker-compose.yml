@@ -1,8 +1,8 @@
 version: '3.8'
 
 services:
-  notes-service:
-    build: ./app/notes-service
+  notes_service-service:
+    build: ./app/notes_service-service
     ports:
       - "8000:8000"
     depends_on:
@@ -11,15 +11,15 @@ services:
       # DATABASE_URL takes precedence over these values
       - DB_HOST=db
       - DB_PORT=5432
-      - DB_NAME=notes
-      - DB_USER=notes_user
+      - DB_NAME=notes_service
+      - DB_USER=notes_service_user
       - DB_PASSWORD=secret
 
   db:
     image: postgres:15
     environment:
-      POSTGRES_DB: notes
-      POSTGRES_USER: notes_user
+      POSTGRES_DB: notes_service
+      POSTGRES_USER: notes_service_user
       POSTGRES_PASSWORD: secret
     volumes:
       - db_data:/var/lib/postgresql/data

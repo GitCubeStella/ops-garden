@@ -1,4 +1,4 @@
-# app/notes-service/models.py
+# app/notes_service-service/models.py
 from sqlmodel import SQLModel, Field
 from typing import Optional
 
