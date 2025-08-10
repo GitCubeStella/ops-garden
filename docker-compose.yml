@@ -1,8 +1,8 @@
 version: '3.8'
 
 services:
-  notes_service-service:
-    build: ./app/notes_service-service
+  notes_service:
+    build: ./app/notes_service
     ports:
       - "8000:8000"
     depends_on:
